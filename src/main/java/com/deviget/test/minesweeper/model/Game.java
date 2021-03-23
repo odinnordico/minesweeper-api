@@ -77,10 +77,8 @@ public class Game implements Serializable {
       throw new IllegalArgumentException(
           "Unable to load game, rows and columns do not correspond with game board");
     }
-    /*if (duration.isZero()) {
-      throw new IllegalArgumentException("Unable to load game, duration game is corrupted");
-    }*/
-    return new Game(rows, cols, mines, fullBoard, playedBoard, ended, lost, duration, boardLen);
+    return new Game(rows, cols, mines, fullBoard, playedBoard, ended, lost, duration,
+        boardLen);
   }
 
   public void markAsLost() {

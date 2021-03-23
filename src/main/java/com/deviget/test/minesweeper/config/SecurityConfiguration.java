@@ -1,5 +1,6 @@
 package com.deviget.test.minesweeper.config;
 
+import javax.sql.DataSource;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-
-import javax.sql.DataSource;
 
 @AllArgsConstructor
 @Configuration
@@ -26,8 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-    auth
-        .userDetailsService(appUserDetailsService)
+    auth.userDetailsService(appUserDetailsService)
         .passwordEncoder(encoder())
         .and()
         .authenticationProvider(authenticationProvider())
@@ -37,21 +36,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(final WebSecurity web) {
-    web.ignoring()
-        .antMatchers("/resources/**");
+    web.ignoring().antMatchers("/resources/**");
   }
 
   @Override
   protected void configure(final HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers("/login")
-        .permitAll()
+        .anyRequest()
+        .authenticated()
         .and()
         .formLogin()
         .permitAll()
         .and()
-        .csrf()
-        .disable();
+        .logout()
+        .permitAll()
+        .deleteCookies("JSESSIONID")
+        .and()
+        .csrf().disable()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        .and().requestCache().disable();
   }
 
   @Bean
@@ -71,5 +74,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
     return new SecurityEvaluationContextExtension();
   }
-
 }
