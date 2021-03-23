@@ -22,6 +22,8 @@ public class Game implements Serializable {
   private final int boardLen;
   private final Integer[] fullBoard;
   private final Integer[] playedBoard;
+  @Setter
+  private Long id;
   private boolean ended;
   private boolean lost;
   @Setter
@@ -75,9 +77,9 @@ public class Game implements Serializable {
       throw new IllegalArgumentException(
           "Unable to load game, rows and columns do not correspond with game board");
     }
-    if (duration.isZero()) {
+    /*if (duration.isZero()) {
       throw new IllegalArgumentException("Unable to load game, duration game is corrupted");
-    }
+    }*/
     return new Game(rows, cols, mines, fullBoard, playedBoard, ended, lost, duration, boardLen);
   }
 
