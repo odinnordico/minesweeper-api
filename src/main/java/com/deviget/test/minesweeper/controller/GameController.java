@@ -57,6 +57,21 @@ public class GameController {
         .body(userAppGame);
   }
 
+  @Operation(summary = "Retrieve a game by the given id for the logged user")
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "The game was found and returned",
+              content = {
+                  @Content(
+                      mediaType = MediaType.APPLICATION_JSON_VALUE,
+                      schema = @Schema(implementation = UserAppGame.class))
+              }),
+          @ApiResponse(
+              responseCode = "404",
+              description = "The given id is not present or not correspond to logged user")
+      })
   @GetMapping(path = "/{game-id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UserAppGame> getUserGame(
       @PathVariable("game-id") final long gameId, final Principal principal) {
@@ -67,11 +82,35 @@ public class GameController {
         .orElse(ResponseEntity.notFound().build());
   }
 
+  @Operation(summary = "Retrieve all the games of the logged user")
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "All existing games of the user",
+              content = {
+                  @Content(
+                      mediaType = MediaType.APPLICATION_JSON_VALUE,
+                      schema = @Schema(implementation = UserAppGame.class))
+              })
+      })
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<UserAppGame>> getUserGames(final Principal principal) {
     return ResponseEntity.ok(userGameService.getUserGames(principal.getName()));
   }
 
+  @Operation(summary = "Trigger an uncovering of a cell in a given name")
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "The updated game",
+              content = {
+                  @Content(
+                      mediaType = MediaType.APPLICATION_JSON_VALUE,
+                      schema = @Schema(implementation = UserAppGame.class))
+              })
+      })
   @PutMapping(
       path = "/{game-id}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
