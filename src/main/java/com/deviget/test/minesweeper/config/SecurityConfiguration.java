@@ -36,13 +36,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(final WebSecurity web) {
-    web.ignoring().antMatchers("/resources/**");
+    web.ignoring()
+        .antMatchers(
+            "/resources/**",
+            "swagger-ui",
+            "/v3/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**");
+    // /swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
   }
 
   @Override
   protected void configure(final HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .anyRequest()
+        .antMatchers("/api/**")
         .authenticated()
         .and()
         .formLogin()
@@ -52,9 +62,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .permitAll()
         .deleteCookies("JSESSIONID")
         .and()
-        .csrf().disable()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-        .and().requestCache().disable();
+        .csrf()
+        .disable()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        .and()
+        .requestCache()
+        .disable();
   }
 
   @Bean
