@@ -32,6 +32,13 @@ This project is developed based
 on [DomainDrivenDesign](https://martinfowler.com/bliki/DomainDrivenDesign.html) taking the _Game_
 as the domain and using some _Helpers_ to the domain logic required
 
+### Actual deployment
+
+The
+[application](https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config)
+is deployed in [Heroku](https://dashboard.heroku.com) and can be found in:
+[https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config](https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config) and can be used with credentials _user2_ & _user2_
+
 ### Build and run
 
 This is a Spring Boot application, using gradle as so it can be started by using:
