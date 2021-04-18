@@ -4,18 +4,26 @@ This is a REST API implementation of
 a [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) intended to manage multiple
 games by user.
 
+### Actual deployment
+
+The
+[application](https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config)
+is deployed in [Heroku](https://dashboard.heroku.com) and can be found in:
+[https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config](https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config)
+and can be used with credentials _user2_ & _user2_
+
 ## Installation
 
 ### Prerequisites
 
 * **PostgreSQL:** A PostgresSQL server running with initial structure created
-    * **Scrips:** Having the database server, you can run the script
-      [_resources/initial_data/data-postgres.sql_](resources/initial_data/data-postgres.sql)
+  * **Scrips:** Having the database server, you can run the script
+    [_resources/initial_data/data-postgres.sql_](resources/initial_data/data-postgres.sql)
 * **Environment Variables:** It is required to set the environment variables to run the application,
   for local environment those are not required, the variables are:
-    * **DATABASE_URL:** Having the datasource connection
-    * **DATABASE_USER:** Username of the database
-    * **DATABASE_PASS:** Password to login to the database
+  * **DATABASE_URL:** Having the datasource connection
+  * **DATABASE_USER:** Username of the database
+  * **DATABASE_PASS:** Password to login to the database
 
 ### Technical Specifications
 
@@ -32,12 +40,9 @@ This project is developed based
 on [DomainDrivenDesign](https://martinfowler.com/bliki/DomainDrivenDesign.html) taking the _Game_
 as the domain and using some _Helpers_ to the domain logic required
 
-### Actual deployment
+#### Algorithm
 
-The
-[application](https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config)
-is deployed in [Heroku](https://dashboard.heroku.com) and can be found in:
-[https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config](https://dhk-minesweeper.herokuapp.com/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config) and can be used with credentials _user2_ & _user2_
+The _Marix_ implementation used to update and update the game is taking by using a single array.
 
 ### Build and run
 
@@ -220,10 +225,10 @@ Where:
 * **mines:** The amount of mines set in the game
 * **flags:** The amount of flags used in the game so far
 * **playedBoard:** The current state of the game:
-    * **null:** Covered cell
-    * **0-8:** Number of mines in adjacent cells
-    * **(-1):** Flagged cell
-    * **10:** Cell uncovered and with a mine in it;
+  * **null:** Covered cell
+  * **0-8:** Number of mines in adjacent cells
+  * **(-1):** Flagged cell
+  * **10:** Cell uncovered and with a mine in it;
 * **ended:** Flag to indicated if the game is already finished
 * **lost:** Flag to indicate if the game is already lost
 * **durationInSeconds:**: Time in seconds of the game duration **NOT IMPLEMENTED YET**
