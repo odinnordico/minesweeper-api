@@ -25,7 +25,7 @@ and can be used with credentials _user2_ & _user2_
   * **DATABASE_USER:** Username of the database
   * **DATABASE_PASS:** Password to login to the database
 
-### Technical Specifications
+## Technical Specifications
 
 #### Architecture
 
